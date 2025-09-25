@@ -1,0 +1,1130 @@
+* {
+  box-sizing: inherit;
+  -webkit-font-smoothing: inherit;
+  font-family: sans-serif;
+}
+.bg-image {
+  background-image: url("images/image1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  border-radius: 17px;
+}
+/* Header styling */
+.header {
+  position: absolute;
+  top: 30px; /* Adjust as needed */
+  left: 20px;
+  width: 98%;
+  z-index: 2; /* Ensure it's above the image */
+  color: white; /* Make text visible */
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  gap: 380px;
+}
+.header .left a {
+  text-decoration: none;
+  color: white;
+  position: relative;
+  left: 2%;
+  font-size: 25px;
+}
+.middle {
+  word-spacing: 35px;
+}
+.middle a {
+  text-decoration: none;
+  color: white;
+  position: relative;
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+.middle a:hover {
+  text-decoration: underline white;
+}
+.contact-btn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 17px;
+  display: inline-flex;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+  width: 128px;
+  font-weight: 100;
+  letter-spacing: 2px;
+}
+.contact-btn:hover {
+  background-color: rgb(199, 167, 222);
+  color: rgb(255, 255, 255);
+  border: 0px solid black;
+}
+/* header styling ends here */
+
+/* hotspot */
+.hotspot-container {
+  position: relative;
+  display: inline-block;
+  left: 734px;
+  top: -390px;
+  transform: scale(1.2);
+  animation: zoomInOut 2s infinite ease-in-out;
+}
+.hotspot-dot img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(255 255 255 / 30%);
+}
+.hotspot-content {
+  position: absolute;
+  left: -131px;
+  top: 0px;
+  background-color: rgb(255 255 255 / 25%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 100;
+  white-space: nowrap;
+  color: white;
+  border: 1px solid white;
+  transform: translateX(16px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease-out, opacity 0s ease-out, visibility 0.3s;
+}
+.hotspot-container:hover .hotspot-content {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+/* Hotspot 2 */
+.hotspot-container2 {
+  position: relative;
+  display: inline-block;
+  left: 983px;
+  top: -170px;
+  transform: scale(1.2);
+  animation: zoomInOut 2s infinite ease-in-out;
+}
+.hotspot-dot2 img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(255 255 255 / 30%);
+}
+.hotspot-content2 {
+  position: absolute;
+  left: -131px;
+  top: 0px;
+  background-color: rgb(255 255 255 / 25%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 100;
+  white-space: nowrap;
+  border: 1px solid #ffffffc4;
+  color: white;
+  border: 1px solid white;
+  transform: translateX(16px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
+}
+.hotspot-container2:hover .hotspot-content2 {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+/* Content box 1 */
+.content-box1 {
+  position: absolute;
+  top: 62%;
+  left: 48px; /* Position it towards the left */
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2); /* Light transparent background */
+  backdrop-filter: blur(10px); /* Blurred effect */
+  padding: 14px;
+  border: 1px solid white;
+  border-radius: 14px;
+  width: 268px;
+  height: 121px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: rgb(255, 255, 255);
+  text-align: left;
+  font-family: Arial, sans-serif;
+  transition: transform 0.3s ease-in-out;
+}
+.content-box1:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%) scale(1.05);
+}
+.avatars {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 18px;
+}
+.avatars img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: -10px; /* Overlapping effect */
+  border: 2px solid white;
+}
+.more-members {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  border: 2px solid white;
+}
+/* Content-box 2 */
+.content-box2 {
+  position: absolute;
+  top: 85%;
+  right: 30px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 12px;
+  border-radius: 14px;
+  width: 303px;
+  height: 150px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: rgb(255, 255, 255);
+  text-align: left;
+  font-family: Arial, sans-serif;
+  transition: transform 0.3s ease-in-out;
+  font-size: 27px;
+  border: 1px solid white;
+  font-weight: lighter;
+}
+.content-box2 a {
+  text-decoration: none;
+  color: white;
+}
+.content-box2:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%) scale(1.05);
+}
+/* Content-box 3 */
+.content-box3 {
+  position: absolute;
+  top: 100%;
+  left: -11px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1px 0px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #564e4e;
+  font-weight: bold;
+  width: 690px;
+}
+@media (max-width: 768px) {
+  .content-box3 {
+    width: 90%;
+    left: 10px;
+  }
+}
+.content-box3 h1 {
+  font-size: 74px;
+  font-weight: 300;
+  margin-left: 66px;
+  margin-top: 18px;
+}
+
+.btn2 {
+  position: relative;
+  left: 49%;
+  width: 179px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  top: -89px; /* Moves the button 20px up */
+}
+.more-info-btn {
+  background-color: rgb(57, 134, 234);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 19px;
+  display: inline-flex;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+  width: 128px;
+  font-weight: 100;
+  letter-spacing: 2px;
+}
+.more-info-btn:hover {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  border: 0px solid black;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
+  top: 35px;
+  position: relative;
+}
+/* Left section (Image & Buttons) */
+.left-section {
+  position: relative;
+  max-width: 57%;
+  height: 396;
+}
+.video-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.video-wrapper video {
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* Hotspot for therapy session */
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.hotspot {
+  height: 27px;
+  width: 165px;
+  position: absolute;
+  bottom: 165px;
+  left: 67%;
+  transform: translateX(-58%);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid white;
+  opacity: 1;
+  transform: scale(1.2);
+  animation: zoomInOut 2s infinite ease-in-out;
+}
+
+.dot img {
+  width: 19px;
+  height: 19px;
+  margin-right: 11px;
+  margin-top: 5px;
+}
+
+.hotspot-text {
+  font-size: 17px;
+  font-weight: 100;
+  color: white;
+}
+
+/* Buttons */
+.button-group {
+  margin-top: 13px;
+  display: flex;
+  gap: 10px;
+  position: relative;
+  top: -73px;
+  left: 19px;
+}
+
+.btn {
+  text-decoration: none;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+}
+.btn:hover {
+  background-color: rgb(39, 38, 38);
+  color: white;
+}
+.btn.outline {
+  background: transparent;
+  border: 2px solid rgb(251, 251, 251);
+  color: rgb(255, 240, 240);
+}
+.btn.outline:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Right section (Text & Read More button) */
+.right-section {
+  max-width: 40%;
+  padding-left: 40px;
+  position: relative;
+  top: -66px;
+}
+
+.right-section h1 {
+  font-size: 56px;
+  font-weight: 100;
+  color: #222;
+}
+
+.right-section p {
+  font-size: 20px;
+  color: #555;
+}
+
+.read-more-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.read-more-btn:hover {
+  background-color: rgb(57, 134, 234);
+}
+.read-more-btn span {
+  margin-left: 5px;
+}
+
+/* Features Section */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  position: relative;
+  top: 68px;
+  left: 200px;
+  width: 79%;
+}
+
+.feature-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 24%;
+  /* width: 343px; */
+  height: 251px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.4s ease-in-out;
+}
+.feature-card h2 {
+  color: black;
+}
+.feature-card:hover {
+  background-color: rgb(57, 134, 234);
+  color: white;
+}
+.feature-card:hover p {
+  color: white;
+}
+.feature-card:hover h2 {
+  color: white;
+}
+.feature-card:hover .icon img {
+  filter: invert(
+    1
+  ); /* Inverts the colors, making white parts black and vice versa */
+  background-color: black; /* Ensures the background remains white */
+  border-radius: 50%; /* Optional: Makes the icon's background rounded */
+  padding: 0px; /* Optional: Adds spacing around the icon */
+}
+.featre.icon {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 39px;
+  margin-top: 10px;
+  font-weight: 100;
+}
+
+.feature-card p {
+  font-size: 27px;
+  color: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .left-section,
+  .right-section {
+    max-width: 100%;
+    padding: 0;
+  }
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.services-section {
+  background-color: #f0e1ed;
+  padding: 40px;
+  border-radius: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+  top: 96px;
+  height: 504px;
+  width: 92%;
+  left: 20px;
+}
+
+.services-text {
+  width: 480px;
+  flex: 1;
+  min-width: 459px;
+  position: relative;
+  top: 75px;
+}
+
+.services-text .service-btn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 100;
+  position: relative;
+  width: 113px;
+  height: 23px;
+  font-size: 17px;
+  top: -133px;
+}
+.services-text a {
+  text-decoration: none;
+}
+.services-text a:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+.services-text h2 {
+  text-align: left;
+  position: relative;
+  left: -6px;
+  font-weight: 100;
+  font-size: 57px;
+  margin-top: 20px;
+  color: #222;
+}
+
+.services-text p {
+  font-size: 25px;
+  color: #666;
+  max-width: 500px;
+}
+
+.services-image {
+  position: relative;
+  left: 29%;
+  top: -111px;
+  border: 15px solid white;
+  border-radius: 23px;
+  height: 312px;
+  width: 33%;
+}
+
+.services-image img {
+  border-radius: 7px;
+  max-width: 100%;
+  height: 313px;
+}
+
+.services-list {
+  position: relative;
+  top: 171px;
+  flex: 1;
+  min-width: 300px;
+  margin-top: 20px;
+  right: 72px;
+}
+
+.services-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.services-list li {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  font-size: 25px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* ******************************** */
+
+.container2 {
+  position: relative;
+  top: 103px;
+  left: 40px;
+  width: 1425px;
+  /* margin: auto; */
+  text-align: center;
+  background: #f8f8f800;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tag */
+.container2 .tag {
+  position: relative;
+  top: 7px;
+  font-size: 18px;
+  width: 109px;
+  display: inline-block;
+  background: black;
+  color: white;
+  padding: 4px 25px;
+  border-radius: 15px;
+  margin-bottom: 24px;
+}
+.container2 .tag:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+/* Title */
+.title {
+  font-size: 46px;
+  font-weight: 100;
+  margin-bottom: 28px;
+}
+
+/* Card Container */
+.card-container {
+  height: 449px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+/* Cards */
+.card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 30%;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card p {
+  position: relative;
+  top: -45px;
+  left: -12px;
+  padding: 11px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0px;
+  width: 174px;
+  background-color: white;
+  border-radius: 17px;
+  height: 52px;
+}
+
+/* Overlay Arrow */
+.overlay {
+  border: 15px solid white;
+  border-bottom-left-radius: 18px;
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  background: #1e90ff;
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.arrow {
+  border-radius: 100px;
+}
+
+/* Learn More Button */
+.learn-more {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  background: transparent;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.learn-more:hover {
+  background: black;
+  color: white;
+}
+
+/* How it works section */
+.how-it-works {
+  position: relative;
+  top: 169px;
+  left: 123px;
+  border-radius: 23px;
+  background: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1278px;
+}
+
+/* Left Box */
+.left-box {
+  position: relative;
+  height: 359px;
+  background: #ffdffc;
+  padding: 50px;
+  border-radius: 15px;
+  width: 40%;
+  text-align: left;
+}
+.image-wrapper {
+  position: relative;
+  top: -2px;
+  width: 501px;
+  left: -50px;
+  height: 462px;
+}
+.image-wrapper img {
+  width: 612px;
+  height: 460px;
+  object-fit: cover;
+  position: relative;
+  top: -49px;
+  border-radius: 16px;
+}
+.tag {
+  position: relative;
+  top: -503px;
+  left: -32px;
+  display: inline-block;
+  background: black;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.left-box h2 {
+  margin: 0;
+  position: relative;
+  top: -246px;
+  left: -15px;
+  font-size: 66px;
+  font-weight: 100;
+}
+
+/* Steps Section */
+.steps {
+  width: 48%;
+  height: 460px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.step:hover .circle {
+  background: #1e90ff;
+}
+
+.circle {
+  transition: background-color 0.4s ease-in-out;
+  width: 180px;
+  height: 69px;
+  background: #252525;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 29px;
+}
+.step h3 {
+  margin: 0px;
+  font-size: 48px;
+  font-weight: 100;
+}
+
+.step p {
+  margin: 5px 0px;
+  font-size: 24px;
+  color: gray;
+}
+
+.wellness-section {
+  position: relative;
+  top: 184px;
+  left: 150px;
+  margin: 0px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 64vh;
+  width: 70%;
+  padding: 0;
+  border-radius: 12px;
+}
+
+.text-content {
+  flex: 1;
+  padding-right: 40px;
+  position: relative;
+  left: -7px;
+}
+
+.text-content h2 {
+  font-size: 36px;
+  font-weight: 100;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+.text-content p {
+  font-size: 19px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  background: #3366ff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #000000;
+}
+
+.image-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.main-image {
+  position: relative;
+  width: 371px;
+  height: auto;
+  right: 29px;
+  top: 30px;
+}
+
+.main-image img {
+  position: relative;
+  width: 189%;
+  border-radius: 10px;
+  left: -194px;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.overlay-text.right {
+  left: auto;
+  right: 10%;
+}
+
+.discount-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  width: 100%;
+  position: relative;
+  top: -12px;
+  right: -1px;
+}
+
+.hashtag {
+  background: #f8ebf5;
+  padding: 22px 20px;
+  border-radius: 10px;
+  font-weight: 100;
+  width: 385px;
+  height: 75px;
+  position: relative;
+  text-align: center;
+  font-size: 29px;
+  left: 55px;
+}
+
+.discount {
+  background: #3366ff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-align: left;
+  position: relative;
+  right: -70px;
+  width: 220px;
+  height: 82px;
+  line-height: 3px;
+}
+
+.discount span {
+  font-size: 22px;
+  font-weight: 700;
+  position: relative;
+  top: 20px;
+}
+
+.discount p {
+  font-size: 18px;
+  position: relative;
+  top: 21px;
+}
+
+.wellness-section .hotspot1 {
+  height: 27px;
+  width: 165px;
+  position: relative;
+  bottom: 245px;
+  left: -33%;
+  transform: translateX(-58%);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid white;
+  opacity: 1;
+  transform: scale(1.2);
+  animation: zoomInOut 2s infinite ease-in-out;
+}
+
+.wellness-section .hotspot1 .dot img {
+  left: -36px;
+  position: relative;
+  width: 19px;
+  height: 19px;
+}
+
+.wellness-section .hotspot1-text {
+  font-size: 17px;
+  font-weight: 100;
+  color: white;
+}
+
+.wellness-section .hotspot2 {
+  height: 27px;
+  width: 165px;
+  position: absolute;
+  bottom: 118px;
+  left: 84%;
+  transform: translateX(-58%);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid white;
+  opacity: 1;
+  transform: scale(1.2);
+  animation: zoomInOut 2s infinite ease-in-out;
+}
+
+.wellness-section .hotspot2 .dot img {
+  width: 19px;
+  height: 19px;
+  left: -36px;
+  position: relative;
+}
+
+.wellness-section .hotspot2-text {
+  font-size: 17px;
+  font-weight: 100;
+  color: white;
+}
+
+/* FOOTER */
+.footer {
+  display: flow;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #f9f9f9;
+  background: #181818;
+  color: white;
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 1505px;
+  position: relative;
+  top: 217px;
+  left: -2px;
+  height: 304px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  max-width: 36%;
+}
+
+.footer-left h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.footer-left p {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.subscribe {
+  display: flex;
+  gap: 10px;
+}
+
+.subscribe input {
+  color: white;
+  background-color: black;
+  height: 42px;
+  padding: 10px;
+  width: 220px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+.subscribe button {
+  height: 42px;
+  font-size: 18px;
+  background: #3366ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subscribe button:hover {
+  background: #254edb;
+}
+
+.footer-links {
+  display: flex;
+  gap: 50px;
+}
+
+.column h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: 100;
+}
+
+.column a {
+  display: block;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.column a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.back-to-top {
+  background: linear-gradient(to right, #555, #888);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-to-top:hover {
+  background: linear-gradient(to right, #444, #777);
+}
