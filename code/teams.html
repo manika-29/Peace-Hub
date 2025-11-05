@@ -9,7 +9,6 @@
 
 <body>
     <div class="bg-image"></div>
-    <!-- Navbar -->
     <header class="navbar">
         <div class="logo">
             <a href="peace_hub.html">PEACE<span>☮</span>HUB</a>
@@ -22,14 +21,26 @@
                 <li><a href="teams.html">Teams</a></li>
             </ul>
         </nav>
-        <a href="contact_us.html" class="contact-btn">Contact Us <span>&rarr;</span></a>
+        <a href="signup.html" class="contact-btn">SignUp <span>&rarr;</span></a>
+
+        <div class="hamburger" onclick="toggleSidebar()">
+            ☰
+        </div>
     </header>
-    <!-- Hero Section -->
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">×</a>
+        <a href="peace_hub.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="teams.html">Team</a>
+        <a href="signup.html" class="sidebar-btn">SignUp</a>
+    </div>
+
     <section class="hero">
         <h1>Meet Our <br>Experts</h1>
     </section>
 
-    <!-- Doctor card section 1 -->
     <section class="doctors-section">
         <div class="doctor-card">
             <img src="images/image15.png" alt="Dr. Emily Parker">
@@ -55,7 +66,6 @@
             <button class="consult-btn">Consult Now</button>
         </div>
     </section>
-    <!-- Doctor card section 2 -->
     <section class="doctors-section2">
         <div class="doctor-card2">
             <img src="images/image18.png" alt="Dr. Emily Parker">
@@ -81,7 +91,6 @@
             <button class="consult-btn">Consult Now</button>
         </div>
     </section>
-    <!-- Doctor card section 3 -->
     <section class="doctors-section3">
         <div class="doctor-card3">
             <img src="images/image21.png" alt="Dr. Emily Parker">
@@ -107,7 +116,6 @@
             <button class="consult-btn">Consult Now</button>
         </div>
     </section>
-    <!-- Wellness-Section -->
     <div class="wellness-section">
         <div class="text-content">
             <h2>Ready to embark on the journey of wellness?</h2>
@@ -141,7 +149,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-left">
@@ -185,5 +192,35 @@
         </div>
     </footer>
 
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+
+    <script>
+        // --- Sidebar Toggle ---
+        function toggleSidebar() {
+            document.getElementById("mySidebar").classList.toggle("active");
+        }
+
+        // --- Back to Top Button Logic ---
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 300px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "flex";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document smoothly
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
 </body>
 </html>

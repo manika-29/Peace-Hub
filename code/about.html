@@ -9,10 +9,8 @@
 </head>
 
 <body>
-    <!-- Navbar code starts here -->
     <div class="header">
         <div class="bg-image"></div>
-        <!-- Navbar -->
         <header class="navbar">
             <div class="logo">
                 <a href="peace_hub.html">PEACE<span>☮</span>HUB</a>
@@ -25,18 +23,25 @@
                     <li><a href="teams.html">Teams</a></li>
                 </ul>
             </nav>
-            <a href="contact_us.html"><button class="contact-btn">Contact Us →</button></a>
-        </header>
-        <!-- Navbar code ends here -->
+            <a href="signup.html" class="contact-btn-link"><button class="contact-btn">signup →</button></a>
 
-        <!-- Hero Section -->
+            <div class="hamburger" onclick="toggleSidebar()">
+                ☰
+            </div>
+        </header>
         <section class="hero">
             <h1>About <br>PeaceHub</h1>
         </section>
     </div>
-    <!-- Hero Section ends here -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">×</a>
+        <a href="peace_hub.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="teams.html">Team</a>
+        <a href="signup.html" class="sidebar-btn">SignUp</a>
+    </div>
 
-    <!-- *******Bird icon section starts here******* -->
     <div class="bird-icon">&#x1F54A;</div>
     <h1>Empowering you with our <span class="highlight">therapists</span><br> through <span class="highlight">mental
             health</span> awareness.</h1>
@@ -56,9 +61,6 @@
             <p>Expert Collaborations</p>
         </div>
     </div>
-    <!-- Bird icon section ends here -->
-
-    <!-- Service section -->
     <div class="services-section">
         <div class="services-text">
             <a href="services.html" class="service-btn">#Services</a>
@@ -79,7 +81,6 @@
         </div>
     </div>
 
-    <!-- Mentally healthy section -->
     <div class="container">
         <div class="left-section">
             <div class="video-wrapper">
@@ -128,7 +129,6 @@
         </div>
     </div>
 
-    <!-- Doctors team -->
     <div class="doctor-tag"># Teams</div>
     <h1 class="doctor-heading">Meet Our <br> Dedicated Team</h1>
     <div class="doctors-section">
@@ -151,9 +151,6 @@
         </div>
     </div>
     <div class="see-full-team-btn"><a href="teams.html">See Our Full Team</a></div>
-    <!-- Doctor team ends -->
-
-    <!-- Recognized excellence -->
     <div class="awards-section">
         <div class="bg-imagee">
             <img src="images/image34.png" alt="">
@@ -182,9 +179,6 @@
             </div>
         </div>
     </div>
-    <!-- Recognized excellence End -->
-
-    <!-- Wellness section starts here -->
     <section class="wellness-section">
         <div class="text-content">
             <h2>Ready to embark on the journey of wellness?</h2>
@@ -218,19 +212,13 @@
             </div>
         </div>
     </section>
-    <!-- Wellness section ends -->
-
-    <!-- Footer starts here -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-left">
                 <h2>PEACE<span>☮</span>HUB</h2>
                 <p>We are mental health experienced therapists that are passionate about our goal on empowering you
                     mentally with our wellness journey.</p>
-                <div class="subscribe">
-                    <input type="email" placeholder="email@gmail.com">
-                    <button>Sign Up</button>
-                </div>
+        
             </div>
 
             <div class="footer-links">
@@ -263,7 +251,35 @@
             <a href="about.html"><button class="back-to-top">Back to Top</button></a>
         </div>
     </footer>
-    <!-- Footer ends -->
-</body>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
 
+    <script>
+        // --- Sidebar Toggle ---
+        function toggleSidebar() {
+            document.getElementById("mySidebar").classList.toggle("active");
+        }
+
+        // --- Back to Top Button Logic ---
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 300px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "flex";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document smoothly
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
+</body>
 </html>

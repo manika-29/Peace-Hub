@@ -10,7 +10,6 @@
 <body>
     <div class="header">
         <div class="bg-image"></div>
-        <!-- Navbar -->
         <header class="navbar">
             <div class="logo">
                 <a href="peace_hub.html">PEACE<span>☮</span>HUB</a>
@@ -23,16 +22,27 @@
                     <li><a href="teams.html">Teams</a></li>
                 </ul>
             </nav>
-            <a href="contact_us.html"><button class="contact-btn">Contact Us →</button></a>
+            <a href="signup.html" class="contact-btn">SignUp →</a>
+
+            <div class="hamburger" onclick="toggleSidebar()">
+                ☰
+            </div>
         </header>
-        <!-- Hero Section -->
+
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">×</a>
+            <a href="peace_hub.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="teams.html">Team</a>
+            <a href="signup.html" class="sidebar-btn">SignUp</a>
+        </div>
+
         <section class="hero">
             <h1>Issues <br>We Tackle</h1>
         </section>
     </div>
-    <!-- Cards container -->
     <div class="container">
-        <!--  First Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image25.png" alt="Stress Management">
@@ -44,12 +54,11 @@
                     productivity, and mental resilience.</p>
                 <div class="card-footer">
                     <span class="price">50$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
 
-        <!-- Second Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image26.png" alt="Depression">
@@ -61,14 +70,12 @@
                     hopelessness through their life.</p>
                 <div class="card-footer">
                     <span class="price">100$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Cards container2 -->
     <div class="container2">
-        <!-- First Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image27.png" alt="Stress Management">
@@ -80,12 +87,11 @@
                     over your thoughts and emotions.</p>
                 <div class="card-footer">
                     <span class="price">50$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
 
-        <!-- Second Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image28.png" alt="Depression">
@@ -97,14 +103,12 @@
                     promoting harmony and understanding.</p>
                 <div class="card-footer">
                     <span class="price">100$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Cards container3 -->
     <div class="container3">
-        <!-- First Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image29.png" alt="Stress Management">
@@ -116,12 +120,11 @@
                     loss of loved ones in your life.</p>
                 <div class="card-footer">
                     <span class="price">50$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
 
-        <!-- Second Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image30.png" alt="Depression">
@@ -133,14 +136,12 @@
                     and worth in your own self.</p>
                 <div class="card-footer">
                     <span class="price">100$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Cards container4 -->
     <div class="container4">
-        <!-- First Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image31.png" alt="Stress Management">
@@ -152,12 +153,11 @@
                     self-esteem about your body image.</p>
                 <div class="card-footer">
                     <span class="price">50$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
 
-        <!-- Second Service Card -->
         <div class="card">
             <div class="card-image">
                 <img src="images/image32.png" alt="Depression">
@@ -169,12 +169,11 @@
                     addiction and regain control of your life.</p>
                 <div class="card-footer">
                     <span class="price">100$ / hr</span>
-                    <button class="btn"><a href="book_now.php">Book Now</a></button>
+                    <button class="btn"><a href="book_now.html">Book Now</a></button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Mental-wellness -->
     <div class="mental-wellness">
         <div class="mental-content">
             <h1>Ready to start your journey of mental wellness?</h1>
@@ -182,7 +181,6 @@
             <a href="contact_us.html" class="btn">Get Started →</a>
         </div>
     </div>
-    <!-- Footer -->
     <div class="footer">
         <div class="footer-content">
             <div class="footer-left">
@@ -225,5 +223,36 @@
             <a href="services.html"><button class="back-to-top">Back to Top</button></a>
         </div>
     </div>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+
+    <script>
+        // --- Sidebar Toggle ---
+        function toggleSidebar() {
+            document.getElementById("mySidebar").classList.toggle("active");
+        }
+
+        // --- Back to Top Button Logic ---
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 300px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "flex";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document smoothly
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
 </body>
 </html>
