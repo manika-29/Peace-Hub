@@ -6,19 +6,162 @@
     <title>Book at PeaceHub</title>
     <link rel="stylesheet" href="book_now.css">
 
-    <script>
-        function initAutocomplete() {
-            var input = document.getElementById("location");
-            if (input) { // Check if the element exists before using it
-                var autocomplete = new google.maps.places.Autocomplete(input, {
-                    types: ["geocode"]
-                });
+    <!-- Firebase CDN -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNpE0GcidvyCjDxUhxK5N3_3Y1qVVCcEg",
+            authDomain: "peacehub-f0f34.firebaseapp.com",
+            projectId: "peacehub-f0f34",
+            storageBucket: "peacehub-f0f34.firebasestorage.app",
+            messagingSenderId: "772247097377",
+            appId: "1:772247097377:web:d95e85903f4bb64de51360",
+            measurementId: "G-TZBZW9262V"
+        };
+
+        try {
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            console.log('Firebase app initialized successfully');
+            
+            // Initialize Analytics (optional, might fail in some environments)
+            try {
+                const analytics = getAnalytics(app);
+                console.log('Firebase Analytics initialized');
+            } catch (analyticsError) {
+                console.log('Analytics not available:', analyticsError.message);
             }
+            
+            // Initialize Firestore
+            const db = getFirestore(app);
+            console.log('Firestore initialized successfully');
+
+            // Make Firebase functions available globally
+            window.firebase = {
+                db,
+                collection,
+                addDoc,
+                serverTimestamp,
+                initialized: true
+            };
+
+            console.log('Firebase setup complete');
+            
+        } catch (error) {
+            console.error('Firebase initialization failed:', error);
+            window.firebase = {
+                initialized: false,
+                error: error.message
+            };
         }
     </script>
 
+    <script>
+        function initAutocomplete() {
+            // Make the autocomplete completely optional and non-intrusive
+            var input = document.getElementById("location");
+            if (input) {
+                try {
+                    // Only enable autocomplete if user wants it - very minimal interference
+                    var autocomplete = new google.maps.places.Autocomplete(input, {
+                        types: ["geocode"]
+                    });
+
+                    // Make it completely optional - only show suggestions when user explicitly wants them
+                    input.addEventListener('focus', function() {
+                        // Allow normal typing without any interference
+                        console.log('Address field focused - normal typing enabled');
+                    });
+
+                    // Only use autocomplete if user selects from dropdown
+                    autocomplete.addListener('place_changed', function() {
+                        var place = autocomplete.getPlace();
+                        if (place.formatted_address) {
+                            input.value = place.formatted_address;
+                            console.log('Address selected from autocomplete:', place.formatted_address);
+                        }
+                    });
+                } catch (error) {
+                    console.log('Google Maps autocomplete not available, using normal input');
+                    makeAddressFieldNormal();
+                }
+            }
+        }
+
+        // Alternative: Make address field work without Google Maps if API fails
+        function makeAddressFieldNormal() {
+            var input = document.getElementById("location");
+            if (input) {
+                // Remove any autocomplete attributes that might interfere
+                input.removeAttribute('autocomplete');
+                input.setAttribute('autocomplete', 'off');
+                
+                // Ensure normal typing behavior
+                input.addEventListener('input', function(e) {
+                    // Allow normal typing
+                    e.stopPropagation();
+                });
+
+                // Add placeholder text to guide user
+                input.placeholder = "Enter your full address (City, State, Country)";
+                
+                console.log('Address field configured for normal typing');
+            }
+        }
+
+        // Enhanced address field setup
+        function setupAddressField() {
+            var input = document.getElementById("location");
+            if (input) {
+                // Ensure the field allows normal typing
+                input.addEventListener('keydown', function(e) {
+                    // Don't let autocomplete prevent normal typing
+                    e.stopPropagation();
+                });
+
+                input.addEventListener('keyup', function(e) {
+                    // Allow normal typing to continue
+                    e.stopPropagation();
+                });
+
+                // Make sure focus stays on the field
+                input.addEventListener('blur', function(e) {
+                    // If blur was caused by autocomplete, refocus
+                    setTimeout(function() {
+                        if (document.activeElement !== input && input.value.length > 0) {
+                            // Only refocus if user was actually typing
+                            var selection = window.getSelection();
+                            if (selection.toString().length === 0) {
+                                input.focus();
+                            }
+                        }
+                    }, 10);
+                });
+            }
+        }
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', function() {
+            setupAddressField();
+        });
+
+        // Fallback if Google Maps doesn't load
+        setTimeout(function() {
+            if (typeof google === 'undefined') {
+                console.log('Google Maps not loaded, using normal address field');
+                makeAddressFieldNormal();
+            }
+        }, 3000);
+    </script>
+
     <script async defer 
-            src="https://maps.googleapis.com/maps/api/js?key=PUT-YOUR-REAL-API-KEY-HERE&libraries=places&callback=initAutocomplete">
+            src="https://maps.googleapis.com/maps/api/js?key=PUT-YOUR-REAL-API-KEY-HERE&libraries=places&callback=initAutocomplete"
+            onerror="makeAddressFieldNormal()">
     </script>
     
 </head>
@@ -69,7 +212,12 @@
                 <input type="tel" placeholder="Category" name="Category" required>
                 <input type="date" placeholder="Date" name="DOA" required>
                 <input type="email" placeholder="Email" name="Email" required>
-                <input type="text" id="location" name="Address" placeholder="Enter city, state, or country" required>
+                <input type="text" 
+                       id="location" 
+                       name="Address" 
+                       placeholder="Enter your address (optional - you can type freely or leave blank)" 
+                       autocomplete="off"
+                       spellcheck="false">
                 <textarea placeholder="Message" name="Message" required></textarea>
                 <input type="submit" value="Book Now" class="btn">
             </form>
@@ -122,6 +270,73 @@
         </div>
     </footer>
 
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal-overlay">
+        <div class="success-modal">
+            <button class="close-modal" onclick="closeSuccessModal()">&times;</button>
+            
+            <div class="success-icon"></div>
+            
+            <h2>Booking Successful!</h2>
+            
+            <div class="booking-id">
+                <strong>Your Booking ID:</strong>
+                <div class="id-text" id="bookingIdText">Loading...</div>
+            </div>
+            
+            <p>We will contact you soon to confirm your appointment. Please save your booking ID for future reference.</p>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="goToHome()">
+                    🏠 Go to Home
+                </button>
+                <button class="modal-btn secondary" onclick="closeSuccessModal()">
+                    📋 Book Another
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="error-modal-overlay">
+        <div class="error-modal">
+            <button class="close-error-modal" onclick="closeErrorModal()">&times;</button>
+            
+            <div class="error-icon"></div>
+            
+            <h2>Booking Failed!</h2>
+            
+            <div class="error-message">
+                <div class="error-title">
+                    <span>📋</span>
+                    <span id="errorTitle">Form Validation Error</span>
+                </div>
+                <div class="error-details" id="errorDetails">
+                    Please check the highlighted fields and try again.
+                </div>
+            </div>
+            
+            <div class="error-suggestions">
+                <h4>💡 Quick Tips:</h4>
+                <ul>
+                    <li>Make sure all required fields are filled</li>
+                    <li>Check your email format (example@email.com)</li>
+                    <li>Verify your contact number</li>
+                    <li>Ensure date is in the future</li>
+                    <li>Address</li>
+                </ul>
+            </div>
+            
+            <div class="error-modal-buttons">
+                <button class="error-modal-btn primary" onclick="closeErrorModal()">
+                    🔧 Fix & Try Again
+                </button>
+                <button class="error-modal-btn secondary" onclick="clearForm()">
+                    🔄 Clear Form
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         function toggleSidebar() {
@@ -131,41 +346,318 @@
         document.addEventListener("DOMContentLoaded", () => {
             const bookingForm = document.getElementById("booking-form");
 
+            // Wait for Firebase to initialize
+            function waitForFirebase(maxAttempts = 20) {
+                return new Promise((resolve, reject) => {
+                    let attempts = 0;
+                    const checkFirebase = () => {
+                        attempts++;
+                        if (window.firebase && window.firebase.initialized) {
+                            resolve(window.firebase);
+                        } else if (window.firebase && window.firebase.error) {
+                            reject(new Error('Firebase failed to initialize: ' + window.firebase.error));
+                        } else if (attempts >= maxAttempts) {
+                            reject(new Error('Firebase initialization timeout'));
+                        } else {
+                            setTimeout(checkFirebase, 100); // Check again in 100ms
+                        }
+                    };
+                    checkFirebase();
+                });
+            }
+
             bookingForm.addEventListener("submit", async (event) => {
                 event.preventDefault(); // Stop the form from submitting normally
 
-                // 1. Get the form data
-                const formData = new FormData(bookingForm);
-                const data = Object.fromEntries(formData.entries());
+                // Show loading state
+                const submitButton = bookingForm.querySelector('input[type="submit"]');
+                const originalValue = submitButton.value;
+                submitButton.value = 'Processing...';
+                submitButton.disabled = true;
+                submitButton.classList.add('loading');
 
                 try {
-                    // 2. Send the data to your new API endpoint
-                    const response = await fetch('api/book', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    });
+                    // Wait for Firebase to be ready
+                    console.log('Waiting for Firebase to initialize...');
+                    const firebase = await waitForFirebase();
+                    console.log('Firebase is ready!');
 
-                    const result = await response.json();
+                    // Get the form data with better handling
+                    const formData = new FormData(bookingForm);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    // Debug: Log form data to see what's being collected
+                    console.log('Form data collected:', data);
 
-                    // 3. Handle the response
-                    if (response.ok) {
-                        // Success! This matches your old PHP logic
-                        alert('Booking Successful!');
-                        window.location.href = 'peace_hub.html';
-                    } else {
-                        // Show an error message from the server
-                        console.error('Submission failed:', result.error);
-                        alert('Booking Failed: ' + (result.details || result.error));
+                    // Clear any previous error highlights
+                    clearFieldErrors();
+
+                    // Get actual field values directly from elements (more reliable)
+                    const getFieldValue = (name) => {
+                        const field = bookingForm.querySelector(`[name="${name}"]`);
+                        return field ? field.value.trim() : '';
+                    };
+
+                    // Validate required fields (Address is optional)
+                    const validationErrors = [];
+                    const fieldValidations = [
+                        { name: 'FirstName', label: 'First Name', value: getFieldValue('FirstName') },
+                        { name: 'LastName', label: 'Last Name', value: getFieldValue('LastName') },
+                        { name: 'Contact', label: 'Contact Number', value: getFieldValue('Contact') },
+                        { name: 'Category', label: 'Service Category', value: getFieldValue('Category') },
+                        { name: 'DOA', label: 'Appointment Date', value: getFieldValue('DOA') },
+                        { name: 'Email', label: 'Email Address', value: getFieldValue('Email') },
+                        { name: 'Message', label: 'Message', value: getFieldValue('Message') }
+                    ];
+                    
+                    // Address is optional - no validation needed
+
+                    // Debug: Log each field validation
+                    console.log('Field validations:', fieldValidations);
+
+                    // Check each field
+                    for (const field of fieldValidations) {
+                        if (!field.value || field.value === '') {
+                            console.log(`Field ${field.name} is empty: "${field.value}"`);
+                            validationErrors.push(field.label);
+                            highlightFieldError(field.name);
+                        } else {
+                            console.log(`Field ${field.name} is valid: "${field.value}"`);
+                        }
                     }
+
+                    // Additional validations
+                    if (data.Email && data.Email.trim() !== '') {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(data.Email)) {
+                            validationErrors.push('Valid Email Format');
+                            highlightFieldError('Email');
+                        }
+                    }
+
+                    if (data.Contact && data.Contact.trim() !== '') {
+                        const phoneRegex = /^[\d\s\-\+\(\)]{6,}$/;
+                        if (!phoneRegex.test(data.Contact)) {
+                            validationErrors.push('Valid Contact Number');
+                            highlightFieldError('Contact');
+                        }
+                    }
+
+                    if (data.DOA && data.DOA.trim() !== '') {
+                        const selectedDate = new Date(data.DOA);
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        if (selectedDate < today) {
+                            validationErrors.push('Future Date');
+                            highlightFieldError('DOA');
+                        }
+                    }
+
+                    // If there are validation errors, show error modal
+                    if (validationErrors.length > 0) {
+                        throw new Error(`Missing or invalid: ${validationErrors.join(', ')}`);
+                    }
+
+                    // Create booking data with validated field values
+                    const bookingData = {
+                        FirstName: getFieldValue('FirstName'),
+                        LastName: getFieldValue('LastName'),
+                        Contact: getFieldValue('Contact'),
+                        Category: getFieldValue('Category'),
+                        DOA: getFieldValue('DOA'),
+                        Email: getFieldValue('Email'),
+                        Address: getFieldValue('Address') || 'Not provided', // Optional field
+                        Message: getFieldValue('Message'),
+                        createdAt: firebase.serverTimestamp(),
+                        status: 'pending',
+                        submittedAt: new Date().toISOString()
+                    };
+
+                    console.log('Saving booking data:', bookingData);
+
+                    // Save to Firebase Firestore
+                    const docRef = await firebase.addDoc(
+                        firebase.collection(firebase.db, 'bookings'),
+                        bookingData
+                    );
+
+                    console.log('Booking saved with ID: ', docRef.id);
+
+                    // Success! Show animated modal
+                    showSuccessModal(docRef.id);
+                    
+                    // Reset form
+                    bookingForm.reset();
+
                 } catch (error) {
-                    // Handle network errors
-                    console.error('Network error:', error);
-                    alert('Booking Failed: A network error occurred.');
+                    // Handle errors with more detail
+                    console.error('Detailed error:', error);
+                    
+                    let errorTitle = 'Booking Failed';
+                    let errorMessage = '';
+                    
+                    if (error.message.includes('Missing or invalid:')) {
+                        errorTitle = 'Form Validation Error';
+                        errorMessage = error.message;
+                    } else if (error.code === 'permission-denied') {
+                        errorTitle = 'Permission Error';
+                        errorMessage = 'We are experiencing technical difficulties. Please try again later or contact support.';
+                    } else if (error.code === 'unavailable') {
+                        errorTitle = 'Service Unavailable';
+                        errorMessage = 'Our booking service is temporarily unavailable. Please try again in a few minutes.';
+                    } else if (error.message.includes('Firebase')) {
+                        errorTitle = 'Connection Error';
+                        errorMessage = 'Unable to connect to our booking system. Please check your internet connection and try again.';
+                    } else {
+                        errorTitle = 'Unexpected Error';
+                        errorMessage = error.message || 'An unexpected error occurred. Please try again or contact support.';
+                    }
+                    
+                    showErrorModal(errorTitle, errorMessage);
+                } finally {
+                    // Reset button state
+                    submitButton.value = originalValue;
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('loading');
                 }
             });
+        });
+
+        // Modal Functions
+        function showSuccessModal(bookingId) {
+            const modal = document.getElementById('successModal');
+            const bookingIdElement = document.getElementById('bookingIdText');
+            
+            // Set booking ID
+            bookingIdElement.textContent = bookingId;
+            
+            // Show modal with animation
+            modal.classList.add('show');
+            
+            // Add confetti effect
+            createConfetti();
+            
+            // Auto close after 10 seconds if user doesn't interact
+            setTimeout(() => {
+                if (modal.classList.contains('show')) {
+                    goToHome();
+                }
+            }, 10000);
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('show');
+        }
+
+        function goToHome() {
+            closeSuccessModal();
+            setTimeout(() => {
+                window.location.href = 'peace_hub.html';
+            }, 300);
+        }
+
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffeaa7', '#fd79a8', '#6c5ce7'];
+            const modal = document.querySelector('.success-modal');
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                modal.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 5000);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSuccessModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSuccessModal();
+                closeErrorModal();
+            }
+        });
+
+        // Error Modal Functions
+        function showErrorModal(title, message) {
+            const modal = document.getElementById('errorModal');
+            const titleElement = document.getElementById('errorTitle');
+            const detailsElement = document.getElementById('errorDetails');
+            
+            // Set error content
+            titleElement.textContent = title;
+            detailsElement.textContent = message;
+            
+            // Show modal with animation
+            modal.classList.add('show');
+            
+            // Auto close after 15 seconds if user doesn't interact
+            setTimeout(() => {
+                if (modal.classList.contains('show')) {
+                    closeErrorModal();
+                }
+            }, 15000);
+        }
+
+        function closeErrorModal() {
+            const modal = document.getElementById('errorModal');
+            modal.classList.remove('show');
+            clearFieldErrors();
+        }
+
+        function highlightFieldError(fieldName) {
+            // Find field by name attribute
+            const field = document.querySelector(`[name="${fieldName}"]`);
+            if (field) {
+                field.classList.add('form-field-error');
+                
+                // Remove error highlight when user starts typing
+                const removeError = () => {
+                    field.classList.remove('form-field-error');
+                    field.removeEventListener('input', removeError);
+                    field.removeEventListener('focus', removeError);
+                };
+                
+                field.addEventListener('input', removeError);
+                field.addEventListener('focus', removeError);
+            }
+        }
+
+        function clearFieldErrors() {
+            const errorFields = document.querySelectorAll('.form-field-error');
+            errorFields.forEach(field => {
+                field.classList.remove('form-field-error');
+            });
+        }
+
+        function clearForm() {
+            const form = document.getElementById('booking-form');
+            form.reset();
+            clearFieldErrors();
+            closeErrorModal();
+        }
+
+        // Close error modal when clicking outside
+        document.getElementById('errorModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeErrorModal();
+            }
         });
     </script>
 </body>

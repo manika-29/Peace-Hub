@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Connection Test - PeaceHub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #b8daff;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Firebase Connection Test - PeaceHub</h1>
+        <p>This page will help you test your Firebase connection and diagnose any issues.</p>
+
+        <div id="status" class="status info">
+            Testing Firebase connection...
+        </div>
+
+        <button onclick="testFirebaseConnection()">Test Connection</button>
+        <button onclick="testBookingSubmission()">Test Booking Submission</button>
+        <button onclick="clearLog()">Clear Log</button>
+
+        <h3>Connection Log:</h3>
+        <div id="log"></div>
+    </div>
+
+    <!-- Firebase CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNpE0GcidvyCjDxUhxK5N3_3Y1qVVCcEg",
+            authDomain: "peacehub-f0f34.firebaseapp.com",
+            projectId: "peacehub-f0f34",
+            storageBucket: "peacehub-f0f34.firebasestorage.app",
+            messagingSenderId: "772247097377",
+            appId: "1:772247097377:web:d95e85903f4bb64de51360",
+            measurementId: "G-TZBZW9262V"
+        };
+
+        function logMessage(message, type = 'info') {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.textContent += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(message);
+        }
+
+        try {
+            logMessage('🚀 Starting Firebase initialization...');
+            const app = initializeApp(firebaseConfig);
+            logMessage('✅ Firebase app initialized successfully');
+            
+            try {
+                const analytics = getAnalytics(app);
+                logMessage('✅ Firebase Analytics initialized');
+            } catch (analyticsError) {
+                logMessage('⚠️ Analytics not available: ' + analyticsError.message, 'warning');
+            }
+            
+            const db = getFirestore(app);
+            logMessage('✅ Firestore initialized successfully');
+
+            window.firebase = {
+                db,
+                collection,
+                addDoc,
+                serverTimestamp,
+                initialized: true
+            };
+
+            window.logMessage = logMessage;
+            logMessage('🎉 Firebase setup complete!');
+            document.getElementById('status').className = 'status success';
+            document.getElementById('status').textContent = '✅ Firebase Connected Successfully!';
+            
+        } catch (error) {
+            logMessage('❌ Firebase initialization failed: ' + error.message, 'error');
+            window.firebase = {
+                initialized: false,
+                error: error.message
+            };
+            document.getElementById('status').className = 'status error';
+            document.getElementById('status').textContent = '❌ Firebase Connection Failed: ' + error.message;
+        }
+
+        // Make test functions global
+        window.testFirebaseConnection = async function() {
+            logMessage('🔍 Testing Firebase connection...');
+            
+            if (!window.firebase || !window.firebase.initialized) {
+                logMessage('❌ Firebase not initialized', 'error');
+                return;
+            }
+
+            try {
+                // Test creating a simple document
+                const testData = {
+                    test: true,
+                    timestamp: window.firebase.serverTimestamp(),
+                    message: 'Connection test successful'
+                };
+
+                logMessage('📝 Attempting to write test document...');
+                const docRef = await window.firebase.addDoc(
+                    window.firebase.collection(window.firebase.db, 'connection_tests'),
+                    testData
+                );
+
+                logMessage('✅ Test document created with ID: ' + docRef.id, 'success');
+                document.getElementById('status').className = 'status success';
+                document.getElementById('status').textContent = '✅ Firebase Write Test Successful!';
+                
+            } catch (error) {
+                logMessage('❌ Write test failed: ' + error.message, 'error');
+                if (error.code === 'permission-denied') {
+                    logMessage('🚨 SECURITY RULES ISSUE: Please update your Firestore security rules!', 'error');
+                }
+                document.getElementById('status').className = 'status error';
+                document.getElementById('status').textContent = '❌ Write Test Failed: ' + error.message;
+            }
+        };
+
+        window.testBookingSubmission = async function() {
+            logMessage('🎫 Testing booking submission...');
+            
+            if (!window.firebase || !window.firebase.initialized) {
+                logMessage('❌ Firebase not initialized', 'error');
+                return;
+            }
+
+            try {
+                const testBooking = {
+                    FirstName: 'Test',
+                    LastName: 'User',
+                    Contact: '1234567890',
+                    Category: 'Test Category',
+                    DOA: '2025-11-10',
+                    Email: 'test@example.com',
+                    Address: 'Test Address',
+                    Message: 'This is a test booking',
+                    createdAt: window.firebase.serverTimestamp(),
+                    status: 'test',
+                    submittedAt: new Date().toISOString()
+                };
+
+                logMessage('📝 Submitting test booking...');
+                const docRef = await window.firebase.addDoc(
+                    window.firebase.collection(window.firebase.db, 'bookings'),
+                    testBooking
+                );
+
+                logMessage('✅ Test booking created with ID: ' + docRef.id, 'success');
+                document.getElementById('status').className = 'status success';
+                document.getElementById('status').textContent = '✅ Booking Test Successful!';
+                
+            } catch (error) {
+                logMessage('❌ Booking test failed: ' + error.message, 'error');
+                document.getElementById('status').className = 'status error';
+                document.getElementById('status').textContent = '❌ Booking Test Failed: ' + error.message;
+            }
+        };
+
+        window.clearLog = function() {
+            document.getElementById('log').textContent = '';
+        };
+    </script>
+</body>
+</html>
