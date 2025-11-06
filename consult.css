@@ -498,3 +498,63 @@ nav ul li a {
         font-size: 24px;
     }
 }
+
+/* === SELECTED DOCTOR STYLES === */
+.selected-doctor-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    color: white;
+    animation: slideInFromTop 0.6s ease-out;
+}
+
+.doctor-selection h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: white;
+    opacity: 0.9;
+}
+
+.doctor-preview {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.doctor-preview img {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.doctor-preview:hover img {
+    transform: scale(1.05);
+}
+
+.doctor-preview h4 {
+    color: white !important;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.doctor-preview p {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 14px;
+    font-style: italic;
+}
+
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
